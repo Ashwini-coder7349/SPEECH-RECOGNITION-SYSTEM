@@ -31,6 +31,8 @@ MENTOR:NEELA SANTHOSH KUMAR
 **OUTPUT:
 
 ![Image](https://github.com/user-attachments/assets/a739df81-dc64-4309-9b7f-af638254a3eb)
+
+
 https://docs.nvidia.com/deeplearning/riva/user-guide/docs/_images/decoder.png
 
 
