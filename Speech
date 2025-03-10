@@ -1,0 +1,55 @@
+import os
+import threading
+from google.cloud import speech
+from pygame import mixer
+import RPi.GPIO as GPIO
+
+# Set up GPIO pins
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)  # LED light strip
+
+# Create a client instance
+client = speech.SpeechClient()
+
+# Define a function to recognize speech
+def recognize_speech():
+    # Create a recognition configuration
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=16000,
+        language_code="en-US",
+    )
+
+    # Create a streaming recognition request
+    streaming_config = speech.StreamingRecognitionConfig(config=config)
+
+    # Create a microphone stream
+    with speech.MicrophoneStream(RATE=16000) as stream:
+        # Perform streaming recognition
+        responses = client.streaming_recognize(streaming_config, stream)
+
+        # Process the responses
+        for response in responses:
+            for result in response.results:
+                # Get the transcript
+                transcript = result.alternatives[0].transcript
+
+                # Process the transcript
+                if "turn on" in transcript:
+                    GPIO.output(17, GPIO.HIGH)
+                elif "turn off" in transcript:
+                    GPIO.output(17, GPIO.LOW)
+
+# Define a function to play audio
+def play_audio(file_name):
+    mixer.init()
+    mixer.music.load(file_name)
+    mixer.music.play()
+
+# Create a thread to recognize speech
+thread = threading.Thread(target=recognize_speech)
+thread.start()
+
+# Play a welcome message
+play_audio("welcome.mp3")
+
