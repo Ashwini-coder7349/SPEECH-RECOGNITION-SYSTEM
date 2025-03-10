@@ -29,7 +29,9 @@ MENTOR:NEELA SANTHOSH KUMAR
 5. The LED light strip should turn on or off accordingly.
 
 **OUTPUT:
+
 ![Image](https://github.com/user-attachments/assets/a739df81-dc64-4309-9b7f-af638254a3eb)
+https://docs.nvidia.com/deeplearning/riva/user-guide/docs/_images/decoder.png
 
 
 
